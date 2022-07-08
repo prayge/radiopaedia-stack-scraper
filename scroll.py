@@ -21,13 +21,26 @@ chromedriver_autoinstaller.install()
 options = webdriver.ChromeOptions()
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
 driver = webdriver.Chrome(options=options)
-driver.get(single_scroll)
+driver.get(multi_caro)
 doc = soup(driver.page_source, "html.parser")
 
 title = urlify(driver.find_element(By.CLASS_NAME,
                                    "header-title").text)
 
-for i, container in enumerate(driver.find_elements(By.CLASS_NAME, "well.case-section.case-study")):
+# get height and number of slices
+containers = driver.find_elements(
+    By.CLASS_NAME, "well.case-section.case-study")
+container_dict = {}
+
+preclick(driver)
+
+for i, container in enumerate(containers):
+    try:
+        container_name = urlify(container.find_element(
+            By.CLASS_NAME, "study-desc").text)
+    except:
+        container_name = i
+
     modality_test = container.find_element(
         By.CLASS_NAME, "carousel.jcarousel-list.jcarousel-list-horizontal")
     carousel_items = modality_test.find_elements(By.TAG_NAME, "li")
@@ -35,36 +48,41 @@ for i, container in enumerate(driver.find_elements(By.CLASS_NAME, "well.case-sec
         modality_title = urlify(item.find_element(
             By.CLASS_NAME, "thumbnail").text)
         modality = item.get_attribute("class")
-        print(f"driver-{i} {modality}: {modality_title}")
-        dir_tree = f"{case}/{title}/{modality_title}"
+        pos = item.get_attribute("jcarouselindex")
+        dir_tree = f"{case}/{title}/{container_name}/{modality_title}"
         if not os.path.exists(dir_tree):
             os.makedirs(dir_tree)
-        # click for each carousel_item
-            # cycle through scroll image download
+        modality_class = re.sub(r"\s+", '.', modality)
+        xpath = '//*[@id="case-images"]/div/div[2]/div/div[3]/ul/' + \
+            f"li[{pos}]/a"
+        print(xpath)
 
-# get height and number of slices
+        if "current" not in modality:
+            driver.execute_script("arguments[0].click();", WebDriverWait(driver, 2).until(
+                EC.element_to_be_clickable((By.XPATH, xpath))))
+            print(
+                f"not current: clicked {modality_class}")
+        else:
+            print(f"current: {modality_class}")
 
-
-def download_images(driver, doc, modality):
-    for container in doc.find_all("div", "well case-section case-study"):
-        # print(container)
-        if "none" in container.find("div", "scrollbar").get("style"):
+        if 'none' in container.find_element(By.CLASS_NAME, "scrollbar").get_attribute("style"):
             print("Single page download...")
-            image = container.find(
-                "img", {"id": "offline-workflow-study-large-image"}).get("src")
-            download_single(image, filename, case,  0)
+            image = container.find_element(
+                By.ID, "offline-workflow-study-large-image").get_attribute("src")
+            download_single(image, case, title,
+                            container_name, modality_title,  0)
+
         else:
             print("Scroll downloader...")
             scroll_up(driver)
-
             for i in range(0, 5):
                 #driver.find_element(By.CLASS_NAME, "up").click()
                 driver.execute_script("arguments[0].click();", WebDriverWait(driver, 2).until(
                     EC.element_to_be_clickable((By.XPATH, '//*[@id="case-images"]/div/div[3]/div[2]/div/div[2]/a[2]'))))
                 sel_image = driver.find_element("id",
                                                 "offline-workflow-study-large-image").get_attribute("src")
-                download_single(sel_image, filename, case, i)
+                download_single(sel_image, case, title,
+                                container_name, modality_title,  i)
 
 
-# preclick(driver)
-#download_images(driver, doc, modality)
+# download_images(driver, doc, modality)
