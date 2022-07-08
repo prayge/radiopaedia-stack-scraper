@@ -2,33 +2,28 @@ from bs4 import BeautifulSoup as soup
 import requests
 from selenium import webdriver
 import chromedriver_autoinstaller
-from utils import download
+from utils import *
 
-
-url = "https://radiopaedia.org/cases/normal-brain-mri-6"
-url2 = "https://radiopaedia.org/cases/retrosternal-multinodular-goitre-cervicothoracic-sign?lang=gb"
-filename = "test21"
+case = "test"
+single_scroll = "https://radiopaedia.org/cases/normal-brain-mri-6"
+single_image = "https://radiopaedia.org/cases/metacarpophalangeal-joint-dislocations?lang=gb"
+multi_scroll = "https://radiopaedia.org/cases/retrosternal-multinodular-goitre-cervicothoracic-sign?lang=gb"
+image_and_scroll = "https://radiopaedia.org/cases/aortic-arch-traumatic-pseudoaneurysm?lang=gb"
 
 chromedriver_autoinstaller.install()
-driver = webdriver.Chrome()
-driver.get(url)
+options = webdriver.ChromeOptions()
+options.add_experimental_option('excludeSwitches', ['enable-logging'])
+driver = webdriver.Chrome(options=options)
+driver.get(single_image)
 doc = soup(driver.page_source, "html.parser")
 
 
-def download_single(source, filename, num):
-    img_data = requests.get(source).content
-    with open("output/" + filename + f"{str(num)}-.jpg", 'wb') as handler:
-        handler.write(img_data)
-
-
-def download_scroll(section, browser):
-    if "none" in section.find_element_by_css_selector(".scrollbar").get_attribute("style"):
+for container in doc.find_all("div", "well case-section case-study"):
+    # print(container)
+    if "none" in container.find("div", "scrollbar").get("style"):
         print("Single page download...")
-        image = browser.find_element_by_css_selector(
-            "#offline-workflow-study-large-image")
-        src = image.get_attribute("src")
-        download_single(src, "test", 2)
-
-
-for container in doc.find_elements_by_css_selector(".well.case-section.case-study"):
-    download_scroll(doc, driver)
+        image = container.find(
+            "img", {"id": "offline-workflow-study-large-image"}).get("src")
+        download_single(image, case, 0)
+    else:
+        print("Scroll downloader...")
