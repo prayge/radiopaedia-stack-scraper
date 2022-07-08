@@ -16,9 +16,8 @@ def download_single(source, task, article, container, modality, num):
             handler.write(img_data)
 
 
-def scroll_up(driver):
-    placeholder = 200
-    for _ in range(0, placeholder):
+def scroll_up(driver, val):
+    for _ in range(0, val):
         driver.execute_script("arguments[0].click();", WebDriverWait(driver, 2).until(
             EC.element_to_be_clickable((By.XPATH, '//*[@id="case-images"]/div/div[3]/div[2]/div/div[2]/a[1]'))))
 
@@ -45,22 +44,20 @@ def urlify(url):
     return url
 
 
-def download_images(driver, doc, modality):
-    for container in doc.find_all("div", "well case-section case-study"):
-        # print(container)
-        if "none" in container.find("div", "scrollbar").get("style"):
-            print("Single page download...")
-            image = container.find(
-                "img", {"id": "offline-workflow-study-large-image"}).get("src")
-            download_single(image, filename, case,  0)
-        else:
-            print("Scroll downloader...")
-            scroll_up(driver)
+def slice_num(driver):
+    temp = re.sub(r"\s+", '.', "knob ui-draggable ui-draggable-handle")
+    driver.execute_script("arguments[0].click();", WebDriverWait(driver, 2).until(
+        EC.element_to_be_clickable((By.XPATH, '//*[@id="case-images"]/div/div[3]/div[2]/div/div[2]/a[2]'))))
+    height_val_2 = driver.find_element(By.CLASS_NAME,
+                                       temp).get_attribute("style")
+    nums_start = height_val_2.find("top: ")
+    num = height_val_2[nums_start+5:]
+    num = re.sub(" ", '', num)
+    num = re.sub("%", '', num)
+    num = re.sub(";", '', num)
+    driver.execute_script("arguments[0].click();", WebDriverWait(driver, 2).until(
+        EC.element_to_be_clickable((By.XPATH, '//*[@id="case-images"]/div/div[3]/div[2]/div/div[2]/a[1]'))))
+    num = float(num)
+    nums = 100//num
 
-            for i in range(0, 5):
-                #driver.find_element(By.CLASS_NAME, "up").click()
-                driver.execute_script("arguments[0].click();", WebDriverWait(driver, 2).until(
-                    EC.element_to_be_clickable((By.XPATH, '//*[@id="case-images"]/div/div[3]/div[2]/div/div[2]/a[2]'))))
-                sel_image = driver.find_element("id",
-                                                "offline-workflow-study-large-image").get_attribute("src")
-                download_single(sel_image, filename, case, i)
+    return round(nums)

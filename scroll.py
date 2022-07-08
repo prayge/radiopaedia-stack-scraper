@@ -27,12 +27,10 @@ doc = soup(driver.page_source, "html.parser")
 title = urlify(driver.find_element(By.CLASS_NAME,
                                    "header-title").text)
 
-# get height and number of slices
+
 containers = driver.find_elements(
     By.CLASS_NAME, "well.case-section.case-study")
 container_dict = {}
-
-preclick(driver)
 
 for i, container in enumerate(containers):
     try:
@@ -74,15 +72,12 @@ for i, container in enumerate(containers):
 
         else:
             print("Scroll downloader...")
-            scroll_up(driver)
-            for i in range(0, 5):
-                #driver.find_element(By.CLASS_NAME, "up").click()
+            scroll_up(driver, 300)
+            slices = slice_num(driver) - 1
+            for i in range(0, slices):
                 driver.execute_script("arguments[0].click();", WebDriverWait(driver, 2).until(
                     EC.element_to_be_clickable((By.XPATH, '//*[@id="case-images"]/div/div[3]/div[2]/div/div[2]/a[2]'))))
                 sel_image = driver.find_element("id",
                                                 "offline-workflow-study-large-image").get_attribute("src")
                 download_single(sel_image, case, title,
                                 container_name, modality_title,  i)
-
-
-# download_images(driver, doc, modality)
