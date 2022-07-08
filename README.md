@@ -26,3 +26,5 @@ This will create an initial directory containing several directories comprising 
 ## Future Steps
 
 - [ ] Text scraping for NLP models.
+- [ ] Database of search for multi download
+- [ ] Threading for better performances

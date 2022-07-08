@@ -33,6 +33,12 @@ try:
 except:
     print("Not found")
 
+
+#make directory for article name
+#make directories for modalities
+#get height and number of slices
+
+
 for container in doc.find_all("div", "well case-section case-study"):
     # print(container)
     if "none" in container.find("div", "scrollbar").get("style"):
@@ -42,13 +48,15 @@ for container in doc.find_all("div", "well case-section case-study"):
         download_single(image, filename, case,  0)
     else:
         print("Scroll downloader...")
+        placeholder = 200
+        for _ in range(0, placeholder):
+            driver.execute_script("arguments[0].click();", WebDriverWait(driver, 2).until(
+                EC.element_to_be_clickable((By.XPATH, '//*[@id="case-images"]/div/div[3]/div[2]/div/div[2]/a[1]'))))
 
         for i in range(0, 5):
             #driver.find_element(By.CLASS_NAME, "up").click()
             driver.execute_script("arguments[0].click();", WebDriverWait(driver, 20).until(
-                EC.element_to_be_clickable((By.XPATH, '//*[@id="case-images"]/div/div[3]/div[2]/div/div[2]/a[1]'))))
+                EC.element_to_be_clickable((By.XPATH, '//*[@id="case-images"]/div/div[3]/div[2]/div/div[2]/a[2]'))))
             sel_image = driver.find_element("id",
                                             "offline-workflow-study-large-image").get_attribute("src")
             download_single(sel_image, filename, case, i)
-
-
