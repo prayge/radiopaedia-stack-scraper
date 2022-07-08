@@ -17,38 +17,31 @@ image_and_scroll = "https://radiopaedia.org/cases/aortic-arch-traumatic-pseudoan
 multi_caro = "https://radiopaedia.org/cases/early-and-late-subacute-intracerebral-haemorrhage-mri?lang=gb"
 
 chromedriver_autoinstaller.install()
+
 options = webdriver.ChromeOptions()
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
 driver = webdriver.Chrome(options=options)
-driver.get(multi_caro)
+driver.get(single_scroll)
 doc = soup(driver.page_source, "html.parser")
 
-title = driver.find_element(By.CLASS_NAME,
-                            "header-title").text
-title = urlify(title)
-
+title = urlify(driver.find_element(By.CLASS_NAME,
+                                   "header-title").text)
 
 for i, container in enumerate(driver.find_elements(By.CLASS_NAME, "well.case-section.case-study")):
     modality_test = container.find_element(
         By.CLASS_NAME, "carousel.jcarousel-list.jcarousel-list-horizontal")
-    caro = modality_test.find_elements(By.TAG_NAME, "li")
-    for ele in caro:
-        carousel = ele.get_attribute("class")
-        print(f"driver-{i} {carousel}")
+    carousel_items = modality_test.find_elements(By.TAG_NAME, "li")
+    for item in carousel_items:
+        modality_title = urlify(item.find_element(
+            By.CLASS_NAME, "thumbnail").text)
+        modality = item.get_attribute("class")
+        print(f"driver-{i} {modality}: {modality_title}")
+        dir_tree = f"{case}/{title}/{modality_title}"
+        if not os.path.exists(dir_tree):
+            os.makedirs(dir_tree)
+        # click for each carousel_item
+            # cycle through scroll image download
 
-
-
-task = "brain"
-article = "normal-brain"
-modality = "axial-t2"
-
-dir_tree = f"{task}/{article}/{modality}"
-if not os.path.exists(task):
-    os.makedirs(dir_tree)
-
-
-# make directory for article name
-# make directories for modalities
 # get height and number of slices
 
 
