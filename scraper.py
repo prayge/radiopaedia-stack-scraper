@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup as soup
 import requests
 from selenium import webdriver
 import chromedriver_autoinstaller
-from utils import download
+from utils import download, download_single
 
 
 url = "https://radiopaedia.org/cases/normal-brain-mri-6"
@@ -26,3 +26,7 @@ for range in range(0, len(divs)):
         print("No img found")
 
 download(imgs, filename)
+
+
+def download_scroll(url, filename):
+    print("amongus")
