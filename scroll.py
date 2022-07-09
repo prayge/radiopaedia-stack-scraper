@@ -67,6 +67,8 @@ for inc, container in enumerate(containers):
                                     container_name, modality_title, int(pos))
             else:
                 print(f"enum {enum} pos {pos}")
+                print(
+                    f"mod scroll download: {title},{container_name}, {modality_title}")
                 mod_scroll_download(driver, container, case, title,
                                     container_name, modality_title)
 
@@ -81,10 +83,13 @@ for inc, container in enumerate(containers):
             os.makedirs(dir_tree)
 
         if 'none' in container.find_element(By.CLASS_NAME, "scrollbar").get_attribute("style"):
-            print(f"single_download: {single_download}")
+            print(
+                f"single_download: {title},{container_name}, {modality_title}")
             single_download(container, case, title,
                             container_name, modality_title)
 
         else:
+            print(
+                f"scroll download: {title},{container_name}, {modality_title}")
             scroll_download(driver, container, case, title,
                             container_name, modality_title)
