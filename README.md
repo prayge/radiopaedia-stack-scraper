@@ -15,16 +15,37 @@ Clone the repository and use pip to install all dependencies listed in requireme
 Note that pip3 will take a few minutes to install all dependencies. A virtual environment
 is highly recommended. Make sure to cd to the directory where this repository is cloned.
 
+#### DO NOT CLOSE THE BROWSER ON RUN
+
 At this moment in time, URL is hardcoded in ```setup.py``` and needs to be changed, but the significant majority is generalised to any radiopaedia page containing stacks.
 
 To run the program, run the following command:
 
-    python scroll.py
+    python scroll.py <MAIN_DIRECTORY_TITLE> <URL_TO_RADIOPAEDIA_CASE> 
 
-This will create an initial directory containing several directories comprising of modalities of the images recieved from the stack. 
+This will create an initial directory containing several directories comprising of modalities of the images recieved from the stack. If you dont specifically assign the main directory title, it will be the diagnosis/pathology.
+
+## Problems that could be encountered
+
+The program crashes on startup, if it instantly crashes with errors from selenium, just rerun the program with your arguguments
+
+
 
 ## Future Steps
 
 - [ ] Text scraping for NLP models.
 - [ ] Database of search for multi download
 - [ ] Threading for better performances
+
+## Todo 
+
+- [ ] JSON/CSV with patient data 
+- [ ] JSON/CSV with Citation, DIO, Data.
+- [ ] SQL Database of all cases within an article
+- [ ] only scroll up by bar height
+- [ ] change the way height is calulcated
+- [ ] change ```title``` to image caption on arcitle page
+
+### Later Todo
+
+- [ ] Only use confirmend diagnosis with options for Confirmed Substantiated, possible and probable

@@ -7,21 +7,18 @@ from selenium.webdriver.support import expected_conditions as EC
 import chromedriver_autoinstaller
 from utils import *
 import re
+from options import Options
 
-case = "brain"
-filename = "change-to-carousel"
-single_scroll = "https://radiopaedia.org/cases/normal-brain-mri-6"
-single_image = "https://radiopaedia.org/cases/metacarpophalangeal-joint-dislocations?lang=gb"
-multi_scroll = "https://radiopaedia.org/cases/retrosternal-multinodular-goitre-cervicothoracic-sign?lang=gb"
-image_and_scroll = "https://radiopaedia.org/cases/aortic-arch-traumatic-pseudoaneurysm?lang=gb"
-multi_caro = "https://radiopaedia.org/cases/early-and-late-subacute-intracerebral-haemorrhage-mri?lang=gb"
+opt = Options().parse()
+case = opt.directory-name
+url = opt.url
 
 chromedriver_autoinstaller.install()
 
 options = webdriver.ChromeOptions()
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
 driver = webdriver.Chrome(options=options)
-driver.get(multi_caro)
+driver.get(url)
 doc = soup(driver.page_source, "html.parser")
 
 title = urlify(driver.find_element(By.CLASS_NAME,
