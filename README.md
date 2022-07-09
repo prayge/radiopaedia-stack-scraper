@@ -27,6 +27,11 @@ This will create an initial directory containing several directories comprising 
 
 ## Problems that could be encountered
 
+```
+selenium.common.exceptions.WebDriverException: Message: unknown error: cannot determine loading status
+from unknown error: unexpected command response
+```
+
 The program crashes on startup, if it instantly crashes with errors from selenium, just rerun the program with your arguguments
 
 

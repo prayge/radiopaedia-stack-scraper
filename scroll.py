@@ -24,9 +24,9 @@ title = urlify(driver.find_element(By.CLASS_NAME,
 containers = driver.find_elements(
     By.CLASS_NAME, "well.case-section.case-study")
 
-for i, container in enumerate(containers):
+for inc, container in enumerate(containers):
 
-    container_name = get_container_name(container, i)
+    container_name = get_container_name(container, inc)
 
     try:
         modality_test = container.find_element(
@@ -61,18 +61,8 @@ for i, container in enumerate(containers):
                 single_download(container, case, title,
                                 container_name, modality_title)
             else:
-                scroll_up(driver, 300)
-                slices = slice(driver) - 1
-                print(slices)
-                for i in range(0, slices):
-                    driver.execute_script("arguments[0].click();", WebDriverWait(driver, 2).until(
-                        EC.element_to_be_clickable((By.XPATH, '//*[@id="case-images"]/div/div[3]/div[2]/div/div[2]/a[2]'))))
-                    sel_image = driver.find_element("id",
-                                                    "offline-workflow-study-large-image").get_attribute("src")
-                    print(
-                        f"Downloading images from Container: {container_name}, for Modality: {modality_title}")
-                    download_single(sel_image, case, title,
-                                    container_name, modality_title,  i)
+                scroll_download(driver, container, case, title,
+                                container_name, modality_title)
 
     else:
         print("No modalities found.")
@@ -89,15 +79,5 @@ for i, container in enumerate(containers):
                             container_name, modality_title)
 
         else:
-            print(
-                f"Downloading images from Container: {container_name}, for Modality: {modality_title}")
-            slices = slice(driver) - 1
-            print(f"no mod slices : {slices}")
-            for i in range(0, slices):
-                driver.execute_script("arguments[0].click();", WebDriverWait(driver, 2).until(
-                    EC.element_to_be_clickable((By.XPATH, '//*[@id="case-images"]/div/div[3]/div[2]/div/div[2]/a[2]'))))
-                sel_image = driver.find_element("id",
-                                                "offline-workflow-study-large-image").get_attribute("src")
-
-                download_single(sel_image, case, title,
-                                container_name, modality_title,  i)
+            scroll_download(driver, container, case, title,
+                            container_name, modality_title)
