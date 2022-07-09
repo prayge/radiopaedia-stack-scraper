@@ -44,38 +44,6 @@ def urlify(url):
     return url
 
 
-def slice_num(driver):
-    temp = re.sub(r"\s+", '.', "knob ui-draggable ui-draggable-handle")
-    pre_scroll = driver.find_element(By.CLASS_NAME,
-                                     temp).get_attribute("style")
-    print(f"pre_scroll: {pre_scroll}")
-    scroll_up(driver, 300)
-    height_val_1 = driver.find_element(By.CLASS_NAME,
-                                       temp).get_attribute("style")
-    print(f"height_val_1: {height_val_1}")
-    print(height_val_1)
-    driver.execute_script("arguments[0].click();", WebDriverWait(driver, 2).until(
-        EC.element_to_be_clickable((By.XPATH, '//*[@id="case-images"]/div/div[3]/div[2]/div/div[2]/a[2]'))))
-    height_val_2 = driver.find_element(By.CLASS_NAME,
-                                       temp).get_attribute("style")
-    print(f"height_val_2: {height_val_2}")
-    nums_start = height_val_2.find("top: ")
-    num = height_val_2[nums_start+5:]
-    print(f"height alter 1: {num} ")
-    num = re.sub(" ", '', num)
-    num = re.sub("%", '', num)
-    num = re.sub(";", '', num)
-    print(f"height alter 2: {num} ")
-
-    driver.execute_script("arguments[0].click();", WebDriverWait(driver, 2).until(
-        EC.element_to_be_clickable((By.XPATH, '//*[@id="case-images"]/div/div[3]/div[2]/div/div[2]/a[1]'))))
-    num = float(num)
-    nums = 100//num
-    print(f"nums : {nums}")
-    print(f"nums round: {round(nums)}")
-    return round(nums)
-
-
 def slice(driver):
     temp = re.sub(r"\s+", '.', "knob ui-draggable ui-draggable-handle")
     pre_scroll = driver.find_element(By.CLASS_NAME,
@@ -100,3 +68,16 @@ def get_container_name(container, index):
         container_name = index
 
     return container_name
+
+
+def single_download(container, case, title, container_name, modality_title):
+
+    image = container.find_element(
+        By.ID, "offline-workflow-study-large-image").get_attribute("src")
+    print(
+        f"Downloading static image from Container: {container_name}, for Modality: {modality_title}")
+    download_single(image, case, title,
+                    container_name, modality_title,  0)
+
+
+def scroll_download():

@@ -58,13 +58,8 @@ for i, container in enumerate(containers):
 
             # here
             if 'none' in container.find_element(By.CLASS_NAME, "scrollbar").get_attribute("style"):
-                image = container.find_element(
-                    By.ID, "offline-workflow-study-large-image").get_attribute("src")
-                print(
-                    f"Downloading static image from Container: {container_name}, for Modality: {modality_title}")
-                download_single(image, case, title,
-                                container_name, modality_title,  0)
-
+                single_download(container, case, title,
+                                container_name, modality_title)
             else:
                 scroll_up(driver, 300)
                 slices = slice(driver) - 1
@@ -90,13 +85,8 @@ for i, container in enumerate(containers):
             os.makedirs(dir_tree)
 
         if 'none' in container.find_element(By.CLASS_NAME, "scrollbar").get_attribute("style"):
-            print(
-                f"Downloading static image from Container: {container_name}, for Modality: {modality_title}")
-            image = container.find_element(
-                By.ID, "offline-workflow-study-large-image").get_attribute("src")
-
-            download_single(image, case, title,
-                            container_name, modality_title,  0)
+            single_download(container, case, title,
+                            container_name, modality_title)
 
         else:
             print(
@@ -111,4 +101,3 @@ for i, container in enumerate(containers):
 
                 download_single(sel_image, case, title,
                                 container_name, modality_title,  i)
-        
