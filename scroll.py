@@ -11,6 +11,8 @@ from options import Options
 opt = Options().parse()
 case = opt.name
 url = opt.url
+test_url = 'https://radiopaedia.org/cases/covid-19-pneumonia-164?lang=gb'
+
 
 chromedriver_autoinstaller.install()
 options = webdriver.ChromeOptions()
@@ -23,6 +25,10 @@ title = urlify(driver.find_element(By.CLASS_NAME,
                                    "header-title").text)
 containers = driver.find_elements(
     By.CLASS_NAME, "well.case-section.case-study")
+
+
+# move_to_element method – Action Chains in Selenium Python
+
 
 for inc, container in enumerate(containers):
 
@@ -51,14 +57,14 @@ for inc, container in enumerate(containers):
 
             xpath = '//*[@id="case-images"]/div/div[2]/div/div[3]/ul/' + \
                 f"li[{pos}]/a"
-            # single image mod path
+
             if "current" not in modality:
                 print(f"clicked at inc: enum {enum} pos {pos}")
-                driver.execute_script("arguments[0].click();", WebDriverWait(driver, 2).until(
+                driver.execute_script("arguments[0].click();", WebDriverWait(driver, 20).until(
                     EC.element_to_be_clickable((By.XPATH, xpath))))
             else:
                 print("Not clicked, is current")
-            # here
+
             if 'none' in container.find_element(By.CLASS_NAME, "scrollbar").get_attribute("style"):
                 print(
                     f"mod_single_download: {title},{container_name}, {modality_title}")
