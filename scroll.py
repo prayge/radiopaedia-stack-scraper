@@ -24,6 +24,21 @@ title = urlify(driver.find_element(By.CLASS_NAME,
 containers = driver.find_elements(
     By.CLASS_NAME, "well.case-section.case-study")
 
+
+downs = driver.find_elements(By.CLASS_NAME, 'down')
+for down in downs:
+    print(f"{down} down")
+    print(f"\t{down.location} down.location")
+    print(f"\t\t{down.is_displayed()} down.is_displayed()")
+print("\n")
+
+for container in containers:
+    print(f"{container} container")
+    print(f"\t{container.location} container.location")
+    print(f"\t\t{container.is_displayed()} container.is_displayed()")
+    # location
+    # is dispalyed
+
 for inc, container in enumerate(containers):
 
     container_name = get_container_name(container, inc)
@@ -61,8 +76,8 @@ for inc, container in enumerate(containers):
                 single_download(container, case, title,
                                 container_name, modality_title)
             else:
-                scroll_download(driver, container, case, title,
-                                container_name, modality_title)
+                mod_scroll_download(driver, container, case, title,
+                                    container_name, modality_title)
 
     else:
         print("No modalities found.")
