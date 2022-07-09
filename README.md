@@ -55,3 +55,4 @@ The program crashes on startup, if it instantly crashes with errors from seleniu
 - [ ] Only use confirmend diagnosis with options for Confirmed Substantiated, possible and probable
 - [ ] SQL Database of all cases within an article
 - [ ] change ```title``` to image caption on arcitle page
+- [ ] specify container to be downloaded

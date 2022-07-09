@@ -24,21 +24,6 @@ title = urlify(driver.find_element(By.CLASS_NAME,
 containers = driver.find_elements(
     By.CLASS_NAME, "well.case-section.case-study")
 
-
-downs = driver.find_elements(By.CLASS_NAME, 'down')
-for down in downs:
-    print(f"{down} down")
-    print(f"\t{down.location} down.location")
-    print(f"\t\t{down.is_displayed()} down.is_displayed()")
-print("\n")
-
-for container in containers:
-    print(f"{container} container")
-    print(f"\t{container.location} container.location")
-    print(f"\t\t{container.is_displayed()} container.is_displayed()")
-    # location
-    # is dispalyed
-
 for inc, container in enumerate(containers):
 
     container_name = get_container_name(container, inc)
@@ -54,7 +39,7 @@ for inc, container in enumerate(containers):
     if modality_test is not None:
         print("Modality test found")
         carousel_items = modality_test.find_elements(By.TAG_NAME, "li")
-        for item in carousel_items:
+        for enum, item in enumerate(carousel_items):
             modality_title = urlify(item.find_element(
                 By.CLASS_NAME, "thumbnail").text)
             modality = item.get_attribute("class")
@@ -66,16 +51,22 @@ for inc, container in enumerate(containers):
 
             xpath = '//*[@id="case-images"]/div/div[2]/div/div[3]/ul/' + \
                 f"li[{pos}]/a"
-
+            # single image mod path
             if "current" not in modality:
+                print(f"clicked at inc: enum {enum} pos {pos}")
                 driver.execute_script("arguments[0].click();", WebDriverWait(driver, 2).until(
                     EC.element_to_be_clickable((By.XPATH, xpath))))
-
+            else:
+                print("Not clicked, is current")
             # here
             if 'none' in container.find_element(By.CLASS_NAME, "scrollbar").get_attribute("style"):
-                single_download(container, case, title,
-                                container_name, modality_title)
+                print(
+                    f"mod_single_download: {title},{container_name}, {modality_title}")
+                print(f"enum {enum} pos {pos}")
+                mod_single_download(container, case, title,
+                                    container_name, modality_title, int(pos))
             else:
+                print(f"enum {enum} pos {pos}")
                 mod_scroll_download(driver, container, case, title,
                                     container_name, modality_title)
 
@@ -90,6 +81,7 @@ for inc, container in enumerate(containers):
             os.makedirs(dir_tree)
 
         if 'none' in container.find_element(By.CLASS_NAME, "scrollbar").get_attribute("style"):
+            print(f"single_download: {single_download}")
             single_download(container, case, title,
                             container_name, modality_title)
 
