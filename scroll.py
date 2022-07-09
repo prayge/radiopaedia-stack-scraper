@@ -1,4 +1,3 @@
-from bs4 import BeautifulSoup as soup
 import requests
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -10,71 +9,106 @@ import re
 from options import Options
 
 opt = Options().parse()
-case = opt.directory-name
+case = opt.name
 url = opt.url
 
 chromedriver_autoinstaller.install()
-
 options = webdriver.ChromeOptions()
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
 driver = webdriver.Chrome(options=options)
 driver.get(url)
-doc = soup(driver.page_source, "html.parser")
+preclick(driver)
 
 title = urlify(driver.find_element(By.CLASS_NAME,
                                    "header-title").text)
-
-
 containers = driver.find_elements(
     By.CLASS_NAME, "well.case-section.case-study")
-container_dict = {}
 
 for i, container in enumerate(containers):
-    try:
-        container_name = urlify(container.find_element(
-            By.CLASS_NAME, "study-desc").text)
-    except:
-        container_name = i
 
-    modality_test = container.find_element(
-        By.CLASS_NAME, "carousel.jcarousel-list.jcarousel-list-horizontal")
-    carousel_items = modality_test.find_elements(By.TAG_NAME, "li")
-    for item in carousel_items:
-        modality_title = urlify(item.find_element(
-            By.CLASS_NAME, "thumbnail").text)
-        modality = item.get_attribute("class")
-        pos = item.get_attribute("jcarouselindex")
+    container_name = get_container_name(container, i)
+
+    try:
+        modality_test = container.find_element(
+            By.CLASS_NAME, "carousel.jcarousel-list.jcarousel-list-horizontal")
+
+    except:
+        modality_test = None
+        print("Carousel not found")
+
+    if modality_test is not None:
+        print("Modality test found")
+        carousel_items = modality_test.find_elements(By.TAG_NAME, "li")
+        for item in carousel_items:
+            modality_title = urlify(item.find_element(
+                By.CLASS_NAME, "thumbnail").text)
+            modality = item.get_attribute("class")
+            pos = item.get_attribute("jcarouselindex")
+
+            dir_tree = f"{case}/{title}/{container_name}/{modality_title}"
+            if not os.path.exists(dir_tree):
+                os.makedirs(dir_tree)
+
+            xpath = '//*[@id="case-images"]/div/div[2]/div/div[3]/ul/' + \
+                f"li[{pos}]/a"
+
+            if "current" not in modality:
+                driver.execute_script("arguments[0].click();", WebDriverWait(driver, 2).until(
+                    EC.element_to_be_clickable((By.XPATH, xpath))))
+
+            # here
+            if 'none' in container.find_element(By.CLASS_NAME, "scrollbar").get_attribute("style"):
+                image = container.find_element(
+                    By.ID, "offline-workflow-study-large-image").get_attribute("src")
+                print(
+                    f"Downloading static image from Container: {container_name}, for Modality: {modality_title}")
+                download_single(image, case, title,
+                                container_name, modality_title,  0)
+
+            else:
+                scroll_up(driver, 300)
+                slices = slice(driver) - 1
+                print(slices)
+                for i in range(0, slices):
+                    driver.execute_script("arguments[0].click();", WebDriverWait(driver, 2).until(
+                        EC.element_to_be_clickable((By.XPATH, '//*[@id="case-images"]/div/div[3]/div[2]/div/div[2]/a[2]'))))
+                    sel_image = driver.find_element("id",
+                                                    "offline-workflow-study-large-image").get_attribute("src")
+                    print(
+                        f"Downloading images from Container: {container_name}, for Modality: {modality_title}")
+                    download_single(sel_image, case, title,
+                                    container_name, modality_title,  i)
+
+    else:
+        print("No modalities found.")
+        modality_title = urlify(container.find_element(
+            By.CLASS_NAME, "title").text)
+
         dir_tree = f"{case}/{title}/{container_name}/{modality_title}"
+
         if not os.path.exists(dir_tree):
             os.makedirs(dir_tree)
-        modality_class = re.sub(r"\s+", '.', modality)
-        xpath = '//*[@id="case-images"]/div/div[2]/div/div[3]/ul/' + \
-            f"li[{pos}]/a"
-        print(xpath)
-
-        if "current" not in modality:
-            driver.execute_script("arguments[0].click();", WebDriverWait(driver, 2).until(
-                EC.element_to_be_clickable((By.XPATH, xpath))))
-            print(
-                f"not current: clicked {modality_class}")
-        else:
-            print(f"current: {modality_class}")
 
         if 'none' in container.find_element(By.CLASS_NAME, "scrollbar").get_attribute("style"):
-            print("Single page download...")
+            print(
+                f"Downloading static image from Container: {container_name}, for Modality: {modality_title}")
             image = container.find_element(
                 By.ID, "offline-workflow-study-large-image").get_attribute("src")
+
             download_single(image, case, title,
                             container_name, modality_title,  0)
 
         else:
-            print("Scroll downloader...")
-            scroll_up(driver, 300)
-            slices = slice_num(driver) - 1
+            print(
+                f"Downloading images from Container: {container_name}, for Modality: {modality_title}")
+            slices = slice(driver) - 1
+            print(f"no mod slices : {slices}")
             for i in range(0, slices):
                 driver.execute_script("arguments[0].click();", WebDriverWait(driver, 2).until(
                     EC.element_to_be_clickable((By.XPATH, '//*[@id="case-images"]/div/div[3]/div[2]/div/div[2]/a[2]'))))
                 sel_image = driver.find_element("id",
                                                 "offline-workflow-study-large-image").get_attribute("src")
+
                 download_single(sel_image, case, title,
                                 container_name, modality_title,  i)
+        

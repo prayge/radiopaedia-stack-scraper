@@ -11,7 +11,7 @@ class Options():
         # directory
         parser.add_argument('-url', '--url', type=str, help='Radiopadia case URL',
                             default='https://radiopaedia.org/cases/medulloblastoma-55')
-        parser.add_argument('-name', '--directory-name', type=str,
+        parser.add_argument('-name', '--name', type=str,
                             help='Name of main directory', default='Medulloblastoma')
 
         self.initialized = True

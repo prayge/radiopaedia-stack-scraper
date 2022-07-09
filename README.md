@@ -37,6 +37,7 @@ The program crashes on startup, if it instantly crashes with errors from seleniu
 
 ## Todo 
 
+- [ ] Download caro of static images and caro of scorll and statics
 - [ ] Stack to DICOM
 - [ ] JSON/CSV with patient data 
 - [ ] JSON/CSV with Citation, DIO, Data.
