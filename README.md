@@ -21,7 +21,7 @@ At this moment in time, URL is hardcoded in ```setup.py``` and needs to be chang
 
 To run the program, run the following command:
 
-    python scroll.py <MAIN_DIRECTORY_TITLE> <URL_TO_RADIOPAEDIA_CASE> 
+    python scroll.py -title <MAIN_DIRECTORY_TITLE> -url <URL_TO_RADIOPAEDIA_CASE> 
 
 This will create an initial directory containing several directories comprising of modalities of the images recieved from the stack. If you dont specifically assign the main directory title, it will be the diagnosis/pathology.
 
@@ -30,22 +30,22 @@ This will create an initial directory containing several directories comprising 
 The program crashes on startup, if it instantly crashes with errors from selenium, just rerun the program with your arguguments
 
 
-
 ## Future Steps
 
 - [ ] Text scraping for NLP models.
-- [ ] Database of search for multi download
 - [ ] Threading for better performances
 
 ## Todo 
 
+- [ ] Stack to DICOM
 - [ ] JSON/CSV with patient data 
 - [ ] JSON/CSV with Citation, DIO, Data.
-- [ ] SQL Database of all cases within an article
 - [ ] only scroll up by bar height
 - [ ] change the way height is calulcated
-- [ ] change ```title``` to image caption on arcitle page
+
 
 ### Later Todo
-
+- [ ] Stack to nifti or dicom 
 - [ ] Only use confirmend diagnosis with options for Confirmed Substantiated, possible and probable
+- [ ] SQL Database of all cases within an article
+- [ ] change ```title``` to image caption on arcitle page
