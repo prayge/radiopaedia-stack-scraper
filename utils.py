@@ -16,16 +16,17 @@ def download(source, task, article, container, modality, num):
         with open(f"{task}/{article}/{container}/{modality}/image-0{str(num)}.jpg", 'wb') as handler:
             handler.write(img_data)
 
+
 def preclick(driver):
     try:
         driver.execute_script("arguments[0].click();", WebDriverWait(driver, 5).until(
-            EC.element_to_be_clickable((By.XPATH, '//*[@id="accept-choices"]'))))
+            EC.element_to_be_clickable((By.ID, 'accept-choices'))))
     except:
         print("Not found")
 
     try:
         driver.execute_script("arguments[0].click();", WebDriverWait(driver, 5).until(
-            EC.element_to_be_clickable((By.XPATH, '/html/body/footer/div/div/div[1]/button'))))
+            EC.element_to_be_clickable((By.CLASS_NAME, 'expandable-heading'))))
     except:
         print("Not found")
 
@@ -53,12 +54,18 @@ def slice(container):
         return math.floor(nums)-1
 
 
-def get_container_name(container, index):
+def get_container_name(container, title, index):
     try:
         container_name = urlify(container.find_element(
             By.CLASS_NAME, "study-desc").text)
     except:
-        container_name = index
+        container_name = title + f"-{index}"
 
     return container_name
 
+
+def create_dir_tree(case, title, container_name, modality_title):
+
+    dir_tree = f"{case}/{title}/{container_name}/{modality_title}"
+    if not os.path.exists(dir_tree):
+        os.makedirs(dir_tree)

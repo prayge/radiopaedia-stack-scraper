@@ -37,21 +37,21 @@ This sometimes happens when initally loading the program, if it does happen and 
 ## Future Steps
 
 - [ ] Text scraping for NLP models.
-- [ ] Threading for better performances
+- [ ] Threading for better performances, in conjunction with SQL article scraping 
 
 ## Todo 
 
-- [ ] Download caro of static images and caro of scorll and statics
+- [x] Download caro of static images and caro of scorll and statics
+- [x] change ```title``` to image caption on arcitle page
 - [ ] Stack to DICOM
 - [ ] JSON/CSV with patient data 
 - [ ] JSON/CSV with Citation, DIO, Data.
-- [ ] only scroll up by bar height
-- [ ] change the way height is calulcated
+- [x] only scroll up by bar height
+- [x] change the way height is calulcated
 
 
 ### Later Todo
 - [ ] Stack to nifti or dicom 
 - [ ] Only use confirmend diagnosis with options for Confirmed Substantiated, possible and probable
 - [ ] SQL Database of all cases within an article
-- [ ] change ```title``` to image caption on arcitle page
 - [ ] specify container to be downloaded

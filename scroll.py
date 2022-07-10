@@ -13,6 +13,7 @@ def single_download(container, case, title, container_name, modality_title, pos)
 
     download(image, case, title,
              container_name, modality_title,  pos)
+    print(f"Image {pos} downloaded of {modality_title} for {container_name}")
 
 
 def scroll_download(driver, container,  case, title, container_name, modality_title, inc):
