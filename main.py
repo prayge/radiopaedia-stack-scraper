@@ -48,7 +48,6 @@ for inc, container in enumerate(containers):
 
     except:
         modality_test = None
-        print("Carousel not found")
 
     if modality_test is not None:
         print("Modality test found")
@@ -64,7 +63,7 @@ for inc, container in enumerate(containers):
             if not os.path.exists(dir_tree):
                 os.makedirs(dir_tree)
 
-            print(f"modality: {modality}, inc: {inc}")
+            
 
             # change to class name doesnt need to be xpath, make it faster
             if "current" not in modality:
@@ -73,7 +72,6 @@ for inc, container in enumerate(containers):
                 thumbnail_index += 1
             else:
                 thumbnail_index += 1
-                print("Not clicked, is current")
 
             if 'none' in container.find_element(By.CLASS_NAME, "scrollbar").get_attribute("style"):
                 single_download(container, case, title,

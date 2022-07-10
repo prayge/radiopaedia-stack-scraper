@@ -28,6 +28,8 @@ def scroll_download(driver, container,  case, title, container_name, modality_ti
 
         sel_image = container.find_element("id",
                                            "offline-workflow-study-large-image").get_attribute("src")
-        print(f"sel_image: {sel_image}")
+
         download(sel_image, case, title,
                  container_name, modality_title,  i)
+
+    print(f"{slices} Images downloaded of {modality_title} for {container_name}")
