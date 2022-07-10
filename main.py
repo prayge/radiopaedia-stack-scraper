@@ -42,8 +42,10 @@ rows = citation_info.find_elements(By.CLASS_NAME, "row")
 for text in rows:
     title = text.find_element(By.CLASS_NAME, 'col-sm-3').text
     description = text.find_element(By.CLASS_NAME, 'col-sm-8').text
-    print(f"title: {title} description: {description}")
-    #citation.update({f"{urlify(title)}": f"{description}"})
+    #print(f"title: {title} description: {description}")
+    citation.update({f"{urlify(title)}": f"{description}"})
+
+print(citation)
 
 
 def downloader(driver, containers, case, title):
