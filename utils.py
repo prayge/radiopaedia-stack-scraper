@@ -69,3 +69,40 @@ def create_dir_tree(case, title, container_name, modality_title):
     dir_tree = f"{case}/{title}/{container_name}/{modality_title}"
     if not os.path.exists(dir_tree):
         os.makedirs(dir_tree)
+
+
+def get_citation(driver):
+    citation = {}
+    citation_info = driver.find_element(By.ID, "citation-info")
+    rows = citation_info.find_elements(By.CLASS_NAME, "row")
+
+    for text in rows:
+        title = text.find_element(By.CLASS_NAME, 'col-sm-3').text
+        description = text.find_element(By.CLASS_NAME, 'col-sm-8').text
+        #print(f"title: {title} description: {description}")
+        citation.update([(urlify(title), description)])
+
+    return citation
+
+
+def get_case_data(driver):
+    case_data = {}
+    patient_presentation_title = driver.find_element(
+        By.ID, 'case-patient-presentation').find_element(By.TAG_NAME, "h2").text
+    patient_presentation_description = driver.find_element(
+        By.ID, 'case-patient-presentation').find_element(By.TAG_NAME, "p").text
+
+    case_data.update(
+        {f"{urlify(patient_presentation_title)}": f"{patient_presentation_description}"})
+
+    case_data["patient_data"] = {}
+    patient_case_data = driver.find_element(By.ID, 'case-patient-data')
+
+    items = patient_case_data.find_elements(By.CLASS_NAME, "data-item")
+
+    for item in items:
+        title = item.find_element(By.TAG_NAME, "strong").text[:-1]
+        description = item.text[len(title)+2:]
+        case_data["patient_data"][title] = description
+
+    return case_data

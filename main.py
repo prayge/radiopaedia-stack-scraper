@@ -33,19 +33,22 @@ containers = driver.find_elements(
     By.CLASS_NAME, "well.case-section.case-study")
 
 thumbnail_index = 0
+try:
+    citation = get_citation(driver)
+    print(citation)
 
-citation = {}
+except:
+    print("No Citation")
 
-citation_info = driver.find_element(By.ID, "citation-info")
-rows = citation_info.find_elements(By.CLASS_NAME, "row")
+try:
+    case_data = get_case_data(driver)
+    print(case_data)
 
-for text in rows:
-    title = text.find_element(By.CLASS_NAME, 'col-sm-3').text
-    description = text.find_element(By.CLASS_NAME, 'col-sm-8').text
-    #print(f"title: {title} description: {description}")
-    citation.update({f"{urlify(title)}": f"{description}"})
+except:
+    print("No Case Data")
 
-print(citation)
+
+patient_data = driver.find_element(By.ID, 'case-patient-data')
 
 
 def downloader(driver, containers, case, title):
@@ -63,7 +66,7 @@ def downloader(driver, containers, case, title):
         if modality_test is not None:
             print("Modality test found")
             carousel_items = modality_test.find_elements(By.TAG_NAME, "li")
-            for enum, item in enumerate(carousel_items):
+            for item in carousel_items:
                 modality_title = urlify(item.find_element(
                     By.CLASS_NAME, "thumbnail").text)
                 modality = item.get_attribute("class")
@@ -106,5 +109,11 @@ def downloader(driver, containers, case, title):
                 scroll_download(driver, container, case, title,
                                 container_name, modality_title, inc)
 
+        # for container get data
+    # get case discussion
+
+    case = {
+        citation
+    }
 
 #downloader(driver, containers, case, title)
