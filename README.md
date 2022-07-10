@@ -32,8 +32,7 @@ selenium.common.exceptions.WebDriverException: Message: unknown error: cannot de
 from unknown error: unexpected command response
 ```
 
-The program crashes on startup, if it instantly crashes with errors from selenium, just rerun the program with your arguguments
-
+This sometimes happens when initally loading the program, if it does happen and if it instantly crashes, just rerun the program with your arguguments and it should work.
 
 ## Future Steps
 
