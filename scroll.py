@@ -1,3 +1,4 @@
+from tkinter.filedialog import test
 import requests
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -18,7 +19,12 @@ chromedriver_autoinstaller.install()
 options = webdriver.ChromeOptions()
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
 driver = webdriver.Chrome(options=options)
-driver.get(url)
+
+if opt.test == True:
+    driver.get(test_url)
+else:
+    driver.get(url)
+
 preclick(driver)
 
 title = urlify(driver.find_element(By.CLASS_NAME,
@@ -27,7 +33,7 @@ containers = driver.find_elements(
     By.CLASS_NAME, "well.case-section.case-study")
 
 
-# move_to_element method – Action Chains in Selenium Python
+# document.getElementsByClassName('up')[inc]
 
 
 for inc, container in enumerate(containers):

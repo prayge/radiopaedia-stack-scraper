@@ -14,6 +14,9 @@ class Options():
         parser.add_argument('-name', '--name', type=str,
                             help='Name of main directory', default='Medulloblastoma')
 
+        parser.add_argument('-test', '--test', type=bool, help="test",
+                            default=False)
+
         self.initialized = True
         return parser
 
