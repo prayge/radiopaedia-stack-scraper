@@ -1,4 +1,3 @@
-from csv import excel
 import requests
 import os
 from selenium.webdriver.common.by import By

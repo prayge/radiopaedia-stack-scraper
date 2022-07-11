@@ -1,16 +1,11 @@
-from csv import excel
-from pip import main
 import requests
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 import chromedriver_autoinstaller
 from utils import *
-import re
 from options import Options
 from scroll import *
-import json
+from stack import *
+
 
 opt = Options().parse()
 case = opt.name
@@ -31,3 +26,13 @@ else:
 preclick(driver)
 main_container = downloader(driver, case)
 get_json(driver, main_container)
+
+if opt.dicom == True:
+    # to_dicom
+    pass
+if opt.nifti == True:
+    # to_dicom
+    pass
+if opt.npy == True:
+    # to_dicom
+    pass

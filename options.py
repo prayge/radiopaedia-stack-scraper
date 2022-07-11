@@ -1,7 +1,4 @@
 import argparse
-import os
-
-
 class Options():
 
     def __init__(self):
@@ -16,6 +13,12 @@ class Options():
 
         parser.add_argument('-test', '--test', type=bool, help="test",
                             default=False)
+        parser.add_argument('-dicom', '--dicom', type=bool, help="To DICOM",
+                            default=False)
+        parser.add_argument('-nifti', '--nifti', type=bool, help="To NiFTi",
+                            default=False)
+        parser.add_argument('-npy', '--npy', type=bool, help="To npy bin file",
+                            default=False)
 
         self.initialized = True
         return parser
@@ -27,4 +30,3 @@ class Options():
             parser = self.initialize(parser)
         opt = parser.parse_args()
         return opt
-
