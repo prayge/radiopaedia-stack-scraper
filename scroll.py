@@ -65,7 +65,9 @@ def downloader(driver, case):
                 pos = item.get_attribute("position")
 
                 dir_tree = f"{case}/{title}/{container_name}/{modality_title}"
+                print(f"dir tree: {dir_tree}")
                 dirs.append(dir_tree)
+
                 if not os.path.exists(dir_tree):
                     os.makedirs(dir_tree)
 
@@ -89,6 +91,8 @@ def downloader(driver, case):
                 By.CLASS_NAME, "title").text)
             pos = 0
             dir_tree = f"{case}/{title}/{container_name}/{modality_title}"
+            print(f"dir tree: {dir_tree}")
+            dirs.append(dir_tree)
 
             if not os.path.exists(dir_tree):
                 os.makedirs(dir_tree)
@@ -103,4 +107,4 @@ def downloader(driver, case):
 
         main_container[f"{container_name}"] = get_container_info(container)
 
-    return main_container
+    return main_container, dirs
