@@ -24,14 +24,14 @@ else:
     driver.get(url)
 
 preclick(driver)
-main_container, dir_list = downloader(driver, case)
+main_container, dir_dict = downloader(driver, case)
 get_json(driver, main_container)
 
 if opt.dicom == True:
     # to_dicom
     pass
 if opt.nifti == True:
-    to_nifti(dir_list)
+    to_nifti(dir_dict)
     pass
 if opt.npy == True:
     # to_dicom

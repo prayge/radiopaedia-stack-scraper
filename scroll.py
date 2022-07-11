@@ -41,14 +41,14 @@ def downloader(driver, case):
         By.CLASS_NAME, "well.case-section.case-study")
 
     main_container = {}
-    dirs = []
+
+    dir_dict = {}
     thumbnail_index = 0
     for inc, container in enumerate(containers):
 
         container_name = get_container_name(container, title, inc)
 
         try:
-
             carousel = container.find_element(
                 By.CLASS_NAME, "carousel.jcarousel-list.jcarousel-list-horizontal")
 
@@ -65,8 +65,7 @@ def downloader(driver, case):
                 pos = item.get_attribute("position")
 
                 dir_tree = f"{case}/{title}/{container_name}/{modality_title}"
-                print(f"dir tree: {dir_tree}")
-                dirs.append(dir_tree)
+                dir_dict[modality_title] = dir_tree
 
                 if not os.path.exists(dir_tree):
                     os.makedirs(dir_tree)
@@ -91,8 +90,7 @@ def downloader(driver, case):
                 By.CLASS_NAME, "title").text)
             pos = 0
             dir_tree = f"{case}/{title}/{container_name}/{modality_title}"
-            print(f"dir tree: {dir_tree}")
-            dirs.append(dir_tree)
+            dir_dict[modality_title] = dir_tree
 
             if not os.path.exists(dir_tree):
                 os.makedirs(dir_tree)
@@ -107,4 +105,4 @@ def downloader(driver, case):
 
         main_container[f"{container_name}"] = get_container_info(container)
 
-    return main_container, dirs
+    return main_container, dir_dict
