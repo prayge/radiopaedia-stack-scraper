@@ -1,0 +1,33 @@
+{
+    "citation": {
+        "citation:": "Neto, A. Medulloblastoma. Case study, Radiopaedia.org. (accessed on 11 Jul 2022) https://doi.org/10.53347/rID-70432",
+        "doi:": "https://doi.org/10.53347/rID-70432",
+        "permalink:": "https://radiopaedia.org/cases/70432",
+        "rid:": "70432",
+        "revisions:": "2 times by 2 users - see full revision history",
+        "published:": "18th Aug 2019",
+        "systems:": "Oncology, Paediatrics, Central Nervous System",
+        "sections:": "-",
+        "tags:": "-",
+        "institution:": "Real Hospital Portugu\u00eas de Pernambuco - Recife, PE - Brazil",
+        "inclusion-in-quiz-mode:": "Included"
+    },
+    "case_data": {
+        "presentation": "The patient came from another service for a neurosurgical procedure at this hospital.",
+        "patient_data": {
+            "Age": "10 years",
+            "Gender": "Male"
+        }
+    },
+    "containers": {
+        "medulloblastoma-0": {
+            "findings": "Axial nonenhanced CT image shows a slightly heterogeneous midline posterior fossa mass in the cerebellar vermis. The fourth ventricle is obliterated and not seen."
+        },
+        "medulloblastoma-1": {
+            "findings": "Sagittal T1-weighted MR image shows the midline well-defined cerebellar mass, complete filling the fourth ventricle. The lesion has a low signal compared with the surrounding normal cerebellum. On sagittal and axial T2 WI, the tumor shows mild hyperintensity compared with normal brain tissue, with minimal surrounding vasogenic edema. Contrast-enhanced axial T1-WI shows mildly heterogeneous enhancement of the mass. The lesion presents with diffusion restriction, manifested by low ADC values, indicating high tumor cellularity."
+        },
+        "medulloblastoma-2": {
+            "findings": "Photomicrograph (hematoxylin-eosin)\nHistological report after surgical removal: desmoplastic medulloblastoma,"
+        }
+    }
+}

@@ -1,3 +1,4 @@
+from csv import excel
 import requests
 import os
 from selenium.webdriver.common.by import By
@@ -74,14 +75,19 @@ def create_dir_tree(case, title, container_name, modality_title):
 
 def get_citation(driver):
     citation = {}
-    citation_info = driver.find_element(By.ID, "citation-info")
-    rows = citation_info.find_elements(By.CLASS_NAME, "row")
+    try:
+        citation_info = driver.find_element(By.ID, "citation-info")
+        rows = citation_info.find_elements(By.CLASS_NAME, "row")
 
-    for text in rows:
-        title = text.find_element(By.CLASS_NAME, 'col-sm-3').text
-        description = text.find_element(By.CLASS_NAME, 'col-sm-8').text
-        #print(f"title: {title} description: {description}")
-        citation.update([(urlify(title), description)])
+        for text in rows:
+            title = text.find_element(By.CLASS_NAME, 'col-sm-3').text
+            description = text.find_element(By.CLASS_NAME, 'col-sm-8').text
+            #print(f"title: {title} description: {description}")
+            citation.update([(urlify(title), description)])
+
+    except:
+        print("Citation not found")
+        pass
 
     return citation
 
@@ -109,17 +115,37 @@ def get_case_data(driver):
             case_data["patient_data"][title] = description
 
     except:
-
+        print("Case data not found")
         pass
 
     return case_data
 
 
-def get_json(driver, title):
+def get_container_info(container):
+    container_dict = {}
+    try:
+        container_dict["title"] = container.find_element(
+            By.CLASS_NAME, "study-desc").text
+    except:
+        pass
+
+    try:
+        container_dict["findings"] = container.find_element(
+            By.CLASS_NAME, "sub-section.study-findings.body").text
+    except:
+        pass
+
+    return container_dict
+
+
+def get_json(driver, cont_dict):
     info = {}
 
     info["citation"] = get_citation(driver)
     info["case_data"] = get_case_data(driver)
+    info["containers"] = cont_dict
 
-    with open(f"{title}.json", 'w') as jsonfile:
+    with open(f"temp.json", 'w') as jsonfile:
         json.dump(info, jsonfile, indent=4)
+
+    print("JSON Saved with all information relating to the case.")
