@@ -1,0 +1,20 @@
+{
+    "citation": {
+        "citation:": "Asadov, D. Medulloblastoma. Case study, Radiopaedia.org. (accessed on 11 Jul 2022) https://doi.org/10.53347/rID-9473",
+        "doi:": "https://doi.org/10.53347/rID-9473",
+        "permalink:": "https://radiopaedia.org/cases/9473",
+        "rid:": "9473",
+        "revisions:": "7 times by 4 users - see full revision history",
+        "published:": "22nd Apr 2010",
+        "systems:": "Oncology, Central Nervous System",
+        "sections:": "-",
+        "tags:": "posterior fossa, cerebellum",
+        "inclusion-in-quiz-mode:": "Included"
+    },
+    "case_data": {},
+    "containers": {
+        "0": {
+            "findings": "A 4th ventricular mass lesion filling and expanding it, with moderate supraventricular active obstructive hydrocephalus with periventricular hypodensity representing transependymal CSF permeation."
+        }
+    }
+}

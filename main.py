@@ -1,3 +1,4 @@
+from csv import excel
 from pip import main
 import requests
 from selenium import webdriver
@@ -14,7 +15,7 @@ import json
 opt = Options().parse()
 case = opt.name
 url = opt.url
-test_url = 'https://radiopaedia.org/cases/covid-19-pneumonia-164?lang=gb'
+test_url = 'https://radiopaedia.org/cases/medulloblastoma-4'
 
 
 chromedriver_autoinstaller.install()
@@ -51,17 +52,21 @@ def downloader(driver, containers, case, title):
 
         container_name = get_container_name(container, title, inc)
         container_dict = {}
-        container_dict["title"] = container.find_element(
-            By.CLASS_NAME, "study-desc").text
-        container_dict["findings"] = container.find_element(
-            By.CLASS_NAME, "sub-section.study-findings.body").text
 
         try:
+            container_dict["title"] = container.find_element(
+                By.CLASS_NAME, "study-desc").text
             carousel = container.find_element(
                 By.CLASS_NAME, "carousel.jcarousel-list.jcarousel-list-horizontal")
 
         except:
             carousel = None
+
+        try:
+            container_dict["findings"] = container.find_element(
+                By.CLASS_NAME, "sub-section.study-findings.body").text
+        except:
+            pass
 
         if carousel is not None:
             print("Modality test found")
