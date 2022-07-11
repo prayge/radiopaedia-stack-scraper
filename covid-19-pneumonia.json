@@ -1,0 +1,40 @@
+{
+    "citation": {
+        "citation:": "Neto, A. COVID-19 pneumonia. Case study, Radiopaedia.org. (accessed on 11 Jul 2022) https://doi.org/10.53347/rID-85518",
+        "doi:": "https://doi.org/10.53347/rID-85518",
+        "permalink:": "https://radiopaedia.org/cases/85518",
+        "rid:": "85518",
+        "revisions:": "5 times by 2 users - see full revision history",
+        "published:": "30th Dec 2020",
+        "system:": "Chest",
+        "sections:": "-",
+        "tags:": "sars-cov-2, covid-19 pneumonia, covid-19, coronavirus disease 2019, 2019-ncov, ncov, coronavirus, viral pneumonia",
+        "institution:": "Real Hospital Portugu\u00eas de Pernambuco - Recife, PE - Brazil",
+        "inclusion-in-quiz-mode:": "Included"
+    },
+    "case_data": {
+        "presentation": "This patient presented in the ER with headache, fever, asthenia, myalgia, vomiting, dry cough, respiratory distress, and low arterial oxygen saturation starting three days ago.",
+        "patient_data": {
+            "Age": "60 years",
+            "Gender": "Female"
+        }
+    },
+    "containers": {
+        "0": {
+            "title": "day-three-from-symptoms-onset",
+            "findings": "CT shows Bilateral sparse round areas of ground-glass opacities, predominating in a peripheral distribution, with no evidence of crazy-paving or airspace consolidating foci.\nThis patient tested positive RT-PCR test results for SARS-CoV-2, and the CT findings are typical of the initial stage (stage 1) for COVID-19 pneumonia."
+        },
+        "1": {
+            "title": "day-six-from-symptoms-onset",
+            "findings": "Follow-up CT images demonstrate a prominent pulmonary involvement progression, with increased size and density of the ground-glass opacities affecting both lungs, with interlobular septal thickening and a crazy-paving pattern. There are also small foci of consolidations starting to emerge.\nThese are CT imaging findings suggestive of COVID-19 pneumonia in the progressive stage (stage 2)."
+        },
+        "2": {
+            "title": "day-fifteen-from-symptoms-onset",
+            "findings": "The CT reveals more consolidative opacities concerning the ground-glass compared to the previous examination. There are some subpleural parenchymal bands.\nCT findings indicate the transition from the end of the peak stage (stage 3) to the beginning of the late/absorption stage (stage 4) in the evolution of COVID-19 pneumonia."
+        },
+        "3": {
+            "title": "day-twenty-two-from-symptoms-onset",
+            "findings": "CT shows improvement in the consolidations and ground-glass opacities, with some residual lesions and subpleural parenchymal bands in both lungs, usually found at the late/absorption stage (stage 4)."
+        }
+    }
+}

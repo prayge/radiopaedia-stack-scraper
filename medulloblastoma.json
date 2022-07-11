@@ -1,0 +1,23 @@
+{
+    "citation": {
+        "citation:": "Neto, A. Medulloblastoma. Case study, Radiopaedia.org. (accessed on 11 Jul 2022) https://doi.org/10.53347/rID-70432",
+        "doi:": "https://doi.org/10.53347/rID-70432",
+        "permalink:": "https://radiopaedia.org/cases/70432",
+        "rid:": "70432",
+        "revisions:": "2 times by 2 users - see full revision history",
+        "published:": "18th Aug 2019",
+        "systems:": "Oncology, Paediatrics, Central Nervous System",
+        "sections:": "-",
+        "tags:": "-",
+        "institution:": "Real Hospital Portugu\u00eas de Pernambuco - Recife, PE - Brazil",
+        "inclusion-in-quiz-mode:": "Included"
+    },
+    "case_data": {
+        "presentation": "The patient came from another service for a neurosurgical procedure at this hospital.",
+        "patient_data": {
+            "Age": "10 years",
+            "Gender": "Male"
+        },
+        "dfd": "amongus"
+    }
+}

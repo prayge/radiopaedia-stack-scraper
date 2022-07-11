@@ -1,3 +1,4 @@
+from pip import main
 import requests
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -8,6 +9,7 @@ from utils import *
 import re
 from options import Options
 from scroll import *
+import json
 
 opt = Options().parse()
 case = opt.name
@@ -32,46 +34,43 @@ title = urlify(driver.find_element(By.CLASS_NAME,
 containers = driver.find_elements(
     By.CLASS_NAME, "well.case-section.case-study")
 
-thumbnail_index = 0
 try:
-    citation = get_citation(driver)
-    print(citation)
+    get_json(driver, title)
+    print(f"\n JSON of info saved ")
 
 except:
-    print("No Citation")
-
-try:
-    case_data = get_case_data(driver)
-    print(case_data)
-
-except:
-    print("No Case Data")
+    print("No Case Information")
 
 
-patient_data = driver.find_element(By.ID, 'case-patient-data')
+main_container = {}
 
 
 def downloader(driver, containers, case, title):
+    thumbnail_index = 0
     for inc, container in enumerate(containers):
 
         container_name = get_container_name(container, title, inc)
+        container_dict = {}
+        container_dict["title"] = container.find_element(
+            By.CLASS_NAME, "study-desc").text
+        container_dict["findings"] = container.find_element(
+            By.CLASS_NAME, "sub-section.study-findings.body").text
 
         try:
-            modality_test = container.find_element(
+            carousel = container.find_element(
                 By.CLASS_NAME, "carousel.jcarousel-list.jcarousel-list-horizontal")
 
         except:
-            modality_test = None
+            carousel = None
 
-        if modality_test is not None:
+        if carousel is not None:
             print("Modality test found")
-            carousel_items = modality_test.find_elements(By.TAG_NAME, "li")
+            carousel_items = carousel.find_elements(By.TAG_NAME, "li")
             for item in carousel_items:
                 modality_title = urlify(item.find_element(
                     By.CLASS_NAME, "thumbnail").text)
                 modality = item.get_attribute("class")
                 pos = item.get_attribute("position")
-                carousel_index = item.get_attribute("jcarouselindex")
 
                 dir_tree = f"{case}/{title}/{container_name}/{modality_title}"
                 if not os.path.exists(dir_tree):
@@ -109,11 +108,18 @@ def downloader(driver, containers, case, title):
                 scroll_download(driver, container, case, title,
                                 container_name, modality_title, inc)
 
+        main_container[inc] = container_dict
+
         # for container get data
     # get case discussion
 
-    case = {
-        citation
-    }
 
-#downloader(driver, containers, case, title)
+downloader(driver, containers, case, title)
+info = {}
+
+info["citation"] = get_citation(driver)
+info["case_data"] = get_case_data(driver)
+info["containers"] = main_container
+
+with open(f"{title}.json", 'w') as jsonfile:
+    json.dump(info, jsonfile, indent=4)

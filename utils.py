@@ -5,6 +5,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import re
 import math
+import json
 
 
 def download(source, task, article, container, modality, num):
@@ -106,3 +107,13 @@ def get_case_data(driver):
         case_data["patient_data"][title] = description
 
     return case_data
+
+
+def get_json(driver, title):
+    info = {}
+
+    info["citation"] = get_citation(driver)
+    info["case_data"] = get_case_data(driver)
+
+    with open(f"{title}.json", 'w') as jsonfile:
+        json.dump(info, jsonfile, indent=4)
