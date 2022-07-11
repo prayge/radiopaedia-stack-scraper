@@ -117,9 +117,6 @@ This sometimes happens when initally loading the program, if it does happen and 
 - [x] JSON/CSV with Citation, DIO, Data.
 - [x] only scroll up by bar height
 - [x] change the way height is calulcated
-
-
-### Later Todo
 - [ ] Stack to nifti or dicom 
 - [ ] Only use confirmend diagnosis with options for Confirmed Substantiated, possible and probable
 - [ ] SQL Database of all cases within an article
