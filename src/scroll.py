@@ -68,6 +68,7 @@ def downloader(driver, case):
                 dir_dict[modality_title] = dir_tree
 
                 if not os.path.exists(dir_tree):
+                    os.chdir('..')
                     os.makedirs(dir_tree)
 
                 if "current" not in modality:
@@ -100,6 +101,7 @@ def downloader(driver, case):
             dir_dict[modality_title] = dir_tree
 
             if not os.path.exists(dir_tree):
+                os.chdir('..')
                 os.makedirs(dir_tree)
 
             try:

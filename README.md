@@ -21,6 +21,7 @@ At this moment in time, URL is hardcoded in ```setup.py``` and needs to be chang
 
 To run the program, run the following command:
 
+    cd src/
     python scroll.py -title <MAIN_DIRECTORY_TITLE> -url <URL_TO_RADIOPAEDIA_CASE> 
 
 This will create an initial directory containing several directories comprising of modalities of the images recieved from the stack. If you dont specifically assign the main directory title, it will be the diagnosis/pathology.
