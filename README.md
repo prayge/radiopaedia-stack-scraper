@@ -15,16 +15,13 @@ Clone the repository and use pip to install all dependencies listed in requireme
 Note that pip3 will take a few minutes to install all dependencies. A virtual environment
 is highly recommended. Make sure to cd to the directory where this repository is cloned.
 
-#### DO NOT CLOSE THE BROWSER ON RUN
-
-At this moment in time, URL is hardcoded in ```setup.py``` and needs to be changed, but the significant majority is generalised to any radiopaedia page containing stacks.
-
 To run the program, run the following command:
 
     cd src/
     python scroll.py -title <MAIN_DIRECTORY_TITLE> -url <URL_TO_RADIOPAEDIA_CASE> 
 
 This will create an initial directory containing several directories comprising of modalities of the images recieved from the stack. If you dont specifically assign the main directory title, it will be the diagnosis/pathology.
+#### DO NOT CLOSE THE BROWSER ON RUN
 
 Once the program completes, you should get a directory looking like this:
 ```
