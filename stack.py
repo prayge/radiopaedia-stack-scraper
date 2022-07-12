@@ -14,6 +14,7 @@ def to_array(dir):
         img = join(dir, img)
         im = Image.open(img)
         arr = np.array(im)
+        print(arr.shape)
         stk.append(arr)
 
     # check if shapes match
@@ -26,6 +27,7 @@ def to_array(dir):
 def to_nifti(dir_list):
     print(f"to nifti")
     for name, dir in dir_list.items():
+        print(f"name: {name}, dir: {dir}")
         arr = to_array(dir)
         arr = np.rot90(arr, k=1)
         new_image = nib.Nifti1Image(arr, affine=np.eye(4))

@@ -103,6 +103,12 @@ from unknown error: unexpected command response
 
 This sometimes happens when initally loading the program, if it does happen and if it instantly crashes, just rerun the program with your arguguments and it should work.
 
+```
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"css selector","selector":".scrollbar"}
+  (Session info: chrome=103.0.5060.114)
+```
+
+This error can sometimes be caused by the WebDriver being to fast for an internet connection. This usually happens within the inital launch and after a few times loading the page will work properly. one way to solve this can be to use the ``` -sleep``` argument in the CLI and increase the wait delay for slower connections, the standard time is 0.5 seconds but can be increased to your needs.
 ## Future Steps
 
 - [ ] Text scraping for NLP models.

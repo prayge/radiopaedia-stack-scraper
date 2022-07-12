@@ -1,4 +1,6 @@
 import argparse
+
+
 class Options():
 
     def __init__(self):
@@ -10,7 +12,8 @@ class Options():
                             default='https://radiopaedia.org/cases/medulloblastoma-55')
         parser.add_argument('-name', '--name', type=str,
                             help='Name of main directory', default='Medulloblastoma')
-
+        parser.add_argument('-sleep', '--sleep', type=float, help="sleep",
+                            default=1)
         parser.add_argument('-test', '--test', type=bool, help="test",
                             default=False)
         parser.add_argument('-dicom', '--dicom', type=bool, help="To DICOM",

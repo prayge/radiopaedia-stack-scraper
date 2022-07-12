@@ -77,7 +77,14 @@ def downloader(driver, case):
                 else:
                     thumbnail_index += 1
 
-                if 'none' in container.find_element(By.CLASS_NAME, "scrollbar").get_attribute("style"):
+                try:
+                    scroll_test = container.find_element(
+                        By.CLASS_NAME, "scrollbar").get_attribute("style")
+
+                except:
+                    scroll_test = "bar"
+
+                if 'none' in scroll_test:
                     single_download(container, case, title,
                                     container_name, modality_title, int(pos))
                 else:
@@ -95,7 +102,14 @@ def downloader(driver, case):
             if not os.path.exists(dir_tree):
                 os.makedirs(dir_tree)
 
-            if 'none' in container.find_element(By.CLASS_NAME, "scrollbar").get_attribute("style"):
+            try:
+                scroll_test = container.find_element(
+                    By.CLASS_NAME, "scrollbar").get_attribute("style")
+
+            except:
+                scroll_test = "bar"
+
+            if 'none' in scroll_test:
                 single_download(container, case, title,
                                 container_name, modality_title, pos)
 

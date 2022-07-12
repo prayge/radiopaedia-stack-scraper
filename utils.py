@@ -6,6 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import re
 import math
 import json
+import time
 
 
 def download(source, task, article, container, modality, num):
@@ -18,7 +19,7 @@ def download(source, task, article, container, modality, num):
             handler.write(img_data)
 
 
-def preclick(driver):
+def preclick(driver, sleeptime):
     try:
         driver.execute_script("arguments[0].click();", WebDriverWait(driver, 5).until(
             EC.element_to_be_clickable((By.ID, 'accept-choices'))))
@@ -30,6 +31,8 @@ def preclick(driver):
             EC.element_to_be_clickable((By.CLASS_NAME, 'expandable-heading'))))
     except:
         print("Not found")
+
+    time.sleep(sleeptime)
 
 
 def urlify(url):
@@ -139,12 +142,13 @@ def get_container_info(container):
 
 def get_json(driver, cont_dict):
     info = {}
-
+    title = urlify(driver.find_element(By.CLASS_NAME,
+                                       "header-title").text)
     info["citation"] = get_citation(driver)
     info["case_data"] = get_case_data(driver)
     info["containers"] = cont_dict
 
-    with open(f"temp.json", 'w') as jsonfile:
+    with open(f"{title}.json", 'w') as jsonfile:
         json.dump(info, jsonfile, indent=4)
 
     print("JSON Saved with all information relating to the case.")

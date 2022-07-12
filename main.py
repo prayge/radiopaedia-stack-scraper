@@ -5,13 +5,14 @@ from utils import *
 from options import Options
 from scroll import *
 from stack import *
+import time
 
 
 opt = Options().parse()
 case = opt.name
 url = opt.url
 test_url = 'https://radiopaedia.org/cases/medulloblastoma-4'
-
+scale = 'https://radiopaedia.org/cases/traumatic-pneumothorax'
 
 chromedriver_autoinstaller.install()
 options = webdriver.ChromeOptions()
@@ -23,7 +24,7 @@ if opt.test == True:
 else:
     driver.get(url)
 
-preclick(driver)
+preclick(driver, opt.sleep)
 main_container, dir_dict = downloader(driver, case)
 get_json(driver, main_container)
 
