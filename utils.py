@@ -12,11 +12,15 @@ import time
 def download(source, task, article, container, modality, num):
     img_data = requests.get(source).content
     if num < 10:
-        with open(f"{task}/{article}/{container}/{modality}/image-00{str(num)}.jpg", 'wb') as handler:
-            handler.write(img_data)
+        f = open(
+            f"{task}/{article}/{container}/{modality}/image-00{str(num)}.jpg", 'wb')
+        f.write(img_data)
+        f.close()
     else:
-        with open(f"{task}/{article}/{container}/{modality}/image-0{str(num)}.jpg", 'wb') as handler:
-            handler.write(img_data)
+        f = open(
+            f"{task}/{article}/{container}/{modality}/image-0{str(num)}.jpg", 'wb')
+        f.write(img_data)
+        f.close()
 
 
 def preclick(driver, sleeptime):
@@ -84,7 +88,6 @@ def get_citation(driver):
         for text in rows:
             title = text.find_element(By.CLASS_NAME, 'col-sm-3').text
             description = text.find_element(By.CLASS_NAME, 'col-sm-8').text
-            #print(f"title: {title} description: {description}")
             citation.update([(urlify(title), description)])
 
     except:

@@ -13,6 +13,7 @@ case = opt.name
 url = opt.url
 test_url = 'https://radiopaedia.org/cases/medulloblastoma-4'
 scale = 'https://radiopaedia.org/cases/traumatic-pneumothorax'
+small_test = 'https://radiopaedia.org/cases/medulloblastoma-13'
 
 chromedriver_autoinstaller.install()
 options = webdriver.ChromeOptions()
@@ -20,7 +21,7 @@ options.add_experimental_option('excludeSwitches', ['enable-logging'])
 driver = webdriver.Chrome(options=options)
 
 if opt.test == True:
-    driver.get(test_url)
+    driver.get(small_test)
 else:
     driver.get(url)
 

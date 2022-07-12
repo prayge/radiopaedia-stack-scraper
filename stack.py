@@ -4,6 +4,8 @@ from os.path import isfile, join
 import numpy as np
 from PIL import Image
 import nibabel as nib
+from skimage.transform import resize
+import time
 
 
 def to_array(dir):
@@ -12,23 +14,22 @@ def to_array(dir):
     stk = []
     for img in files:
         img = join(dir, img)
-        im = Image.open(img)
+        im = Image.open(img).convert("F")
         arr = np.array(im)
-        print(arr.shape)
+        arr = resize(arr, (360, 360))
         stk.append(arr)
 
-    # check if shapes match
-    # why is there 3 extra channels
     stack = np.stack(stk, axis=2).astype(np.float32)
-    print(f"to array : {stack.shape}")
     return stack
 
 
 def to_nifti(dir_list):
-    print(f"to nifti")
     for name, dir in dir_list.items():
-        print(f"name: {name}, dir: {dir}")
         arr = to_array(dir)
         arr = np.rot90(arr, k=1)
         new_image = nib.Nifti1Image(arr, affine=np.eye(4))
-        nib.save(new_image, name)
+        folder = "nifti"
+        if not os.path.exists(folder):
+            os.makedirs(folder)
+        nib.save(new_image, os.path.join(folder, name))
+        print(f"Nifti Saved at {folder} under name: {name}")
