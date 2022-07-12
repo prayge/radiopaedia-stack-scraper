@@ -116,14 +116,18 @@ This error can sometimes be caused by the WebDriver being to fast for an interne
 
 ## Todo 
 
+- [ ] Last image of carousel stack not downloaded.
+- [ ] Only use confirmend diagnosis with options for Confirmed Substantiated, possible and probable
+- [ ] SQL Database of all cases within an article
+- [ ] specify container to be downloaded
+- [ ] Stack to DICOM
+- 
+## Completed 
+
 - [x] Download caro of static images and caro of scorll and statics
 - [x] change ```title``` to image caption on arcitle page
-- [ ] Stack to DICOM
 - [x] JSON/CSV with patient data 
 - [x] JSON/CSV with Citation, DIO, Data.
 - [x] only scroll up by bar height
 - [x] change the way height is calulcated
-- [ ] Stack to nifti or dicom 
-- [ ] Only use confirmend diagnosis with options for Confirmed Substantiated, possible and probable
-- [ ] SQL Database of all cases within an article
-- [ ] specify container to be downloaded
+- [x] Stack to nifti or dicom 

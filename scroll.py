@@ -22,14 +22,14 @@ def scroll_download(driver, container,  case, title, container_name, modality_ti
             f"document.getElementsByClassName('up')[{inc}].click();")
 
     for i in range(0, slices):
-        driver.execute_script(
-            f"document.getElementsByClassName('down')[{inc}].click();")
-
         sel_image = container.find_element("id",
                                            "offline-workflow-study-large-image").get_attribute("src")
 
         download(sel_image, case, title,
                  container_name, modality_title,  i)
+
+        driver.execute_script(
+            f"document.getElementsByClassName('down')[{inc}].click();")
 
     print(f"{slices} Images downloaded of {modality_title} for {container_name}")
 

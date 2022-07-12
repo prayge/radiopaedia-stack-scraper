@@ -56,10 +56,10 @@ def slice(container):
     height_start = height_start+8
     num = float(pre_scroll[height_start:num_end])
     nums = 100/num
-    if nums < 5:
-        return round(nums)
+    if nums <= 5:
+        return math.ceil(nums)
     else:
-        return math.floor(nums)-1
+        return math.floor(nums)
 
 
 def get_container_name(container, title, index):
