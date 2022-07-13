@@ -7,7 +7,7 @@ class Options():
         self.initialized = False
 
     def initialize(self, parser):
-        # directory
+
         parser.add_argument('-url', '--url', type=str, help='Radiopadia case URL',
                             default='https://radiopaedia.org/cases/medulloblastoma-55')
         parser.add_argument('-name', '--name', type=str,

@@ -119,7 +119,6 @@ This error can sometimes be caused by the WebDriver being to fast for an interne
 - [ ] SQL Database of all cases within an article
 - [ ] specify container to be downloaded
 - [ ] Stack to DICOM
-- 
 ## Completed 
 
 - [x] Download caro of static images and caro of scorll and statics
